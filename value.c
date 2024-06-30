@@ -63,18 +63,17 @@ void Value_backward_helper(ValuePtr parent, ValuePtr value){
     }
     if(!parent){
         value->grad = 1;
-        printf("yeah it goes here my guy\n");
     }
     else{
         switch (parent->operator){
             case 't': //tanh
-                value->grad = parent->grad * (1.0 - pow(regular_tanh(value->data), 2));
+                value->grad += parent->grad * (1.0 - pow(regular_tanh(value->data), 2));
                 break;
             case '+':
-                value->grad = parent->grad;
+                value->grad += parent->grad;
                 break;
             case '*':
-                value->grad = parent->grad * getSiblingData(parent, value);
+                value->grad += parent->grad * getSiblingData(parent, value);
                 break;
             default:
                 break;

@@ -2,62 +2,63 @@
 #include "value.h"
 
 int main(){
-    // ValuePtr x, c1, exp, c2, c3, y, y_tanh;
+    // neural network example
+    ValuePtr x1, x2, w1, w2, b, x1w1, x2w2, x1w1x2w2, n, o;
+    x1 = Value_create(2);
+    x2 = Value_create(0);
+    w1 = Value_create(-3);
+    w2 = Value_create(1);
+    b = Value_create(6.8813735870195432);
 
-    // x = Value_create(3);
-    // exp = Value_create(2);
-    // c1 = Value_create(1);
-    // c2 = Value_create(3);
-    // c3 = Value_create(-1);
+    x1w1 = Value_multiply(x1, w1);
+    x2w2 = Value_multiply(x2, w2);
+    
+    x1w1x2w2 = Value_add(x1w1, x2w2);
 
-    // right, C does not support operator overloading :D
-    // y = x^2 + 3x - 1
-    // y = Value_add(Value_multiply(c1, Value_power(x, exp)),Value_add(Value_multiply(x, c2), c3));
-    // Value_print(y);
+    n = Value_add(x1w1x2w2, b);
 
-    // karpathy's example
-    ValuePtr a, b, c, d, e, f, L, L2;
-    a = Value_create(2);
-    b = Value_create(-3);
-    c = Value_create(10);
-    e = Value_multiply(a, b);
-    d = Value_add(e, c);
-    f = Value_create(-2);
-    L = Value_multiply(d, f);
-    // L2 = Value_tanh(L);
+    o = Value_tanh(n);
 
     printf("BEFORE\n");
-    // Value_print(L2);
-    // printf("\n");
-    Value_print(L);
+    Value_print(o);
     printf("\n");
-    Value_print(d);
+    Value_print(n);
     printf("\n");
-    Value_print(f);
+    Value_print(x1w1x2w2);
     printf("\n");
-    Value_print(c);
+    Value_print(x2w2);
     printf("\n");
-    Value_print(e);
+    Value_print(x1w1);
     printf("\n");
-    Value_print(a);
+    Value_print(w2);
     printf("\n");
-    Value_print(b);
+    Value_print(x2);
+    printf("\n");
+    Value_print(w1);
+    printf("\n");
+    Value_print(x1);
 
     // backwardmaxxing
-    Value_backward(L);
+    Value_backward(o);
 
     printf("SETELAH BEFORE\n");
-    // Value_print(L2);
-    // printf("\n");
-    Value_print(L);
+    Value_print(o);
     printf("\n");
-    Value_print(d);
+    Value_print(n);
     printf("\n");
-    Value_print(f);
+    Value_print(x1w1x2w2);
     printf("\n");
-    Value_print(a);
+    Value_print(x2w2);
     printf("\n");
-    Value_print(b);
+    Value_print(x1w1);
+    printf("\n");
+    Value_print(w2);
+    printf("\n");
+    Value_print(x2);
+    printf("\n");
+    Value_print(w1);
+    printf("\n");
+    Value_print(x1);
 
     return 0;
 }
