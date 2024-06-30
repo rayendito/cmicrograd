@@ -68,7 +68,7 @@ void Value_backward_helper(ValuePtr parent, ValuePtr value){
     else{
         switch (parent->operator){
             case 't': //tanh
-                value->grad = 1.0 - pow(regular_tanh(value->data), 2);
+                value->grad = parent->grad * (1.0 - pow(regular_tanh(value->data), 2));
                 break;
             case '+':
                 value->grad = parent->grad;
