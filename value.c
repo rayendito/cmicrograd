@@ -1,5 +1,6 @@
 #include <stdlib.h>
 #include <math.h>
+#include <time.h>
 #include "value.h"
 
 // operator N is null. i couldn't NULL it for some reason
@@ -123,5 +124,8 @@ void Value_printCompGraphHelper(ValuePtr value, int space){
     Value_printCompGraphHelper(value->operand2, space);
 }
  
-
+double gen_random(){
+    double div = RAND_MAX / 2;
+    return -1 + (rand() / div);
+}
 

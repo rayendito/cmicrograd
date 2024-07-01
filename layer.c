@@ -1,0 +1,47 @@
+#include <stdlib.h>
+#include "layer.h"
+
+LayerPtr Layer_create(int input_size, int size){
+    LayerPtr newLayer = (LayerPtr) malloc(sizeof(Layer) + sizeof(NeuronPtr[size]));
+    newLayer->input_size = input_size;
+    newLayer->size = size;
+
+    for (int i = 0; i < size; i++) {
+        newLayer->neurons[i] = Neuron_create(input_size);
+    }
+
+    newLayer->output = Tensor_create_empty(size);
+    for(int i = 0; i < size; i++){
+        newLayer->output->elements[i] = newLayer->neurons[i]->output;
+    }
+
+    return newLayer;
+}
+
+// UNTESTED, gmn ya cara ngetes yang bener kwaokwaka
+
+int Layer_forward(LayerPtr layer, TensorPtr tensor){
+    if(layer->input_size != tensor->size){
+        printf("layer->input_size and input_size mismatch!\n"); // i really should do checks like these to all lol
+        return -1;
+    }
+
+    for(int i = 0; i < layer->size; i++){
+        Neuron_forward(layer->neurons[i], tensor);
+    }
+
+    for(int i = 0; i < layer->size; i++){
+        layer->output->elements[i] = layer->neurons[i]->output;
+    }
+
+    return 0;
+}
+
+int Layer_backward(LayerPtr layer){
+    return 0;
+}
+
+void Layer_print_output(LayerPtr layer){
+    Tensor_print(layer->output);
+}
+

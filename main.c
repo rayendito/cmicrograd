@@ -1,23 +1,43 @@
 #include <stdio.h>
 #include "value.h"
+#include "tensor.h"
 #include "neuron.h"
+#include "layer.h"
 
 int main(){
-    // one neuron example ====================================================================================
-    NeuronPtr n;
-    n = Neuron_create(2);
-    // Neuron_printWandB(n);
-    ValuePtr v[2] = {Value_create(1), Value_create(2)};
-    Neuron_forward(n, v, 2);
+    // layer example ====================================================================================
+    const int INPUT_SIZE = 3;
+    const int LAYER_SIZE = 2;
+    TensorPtr input;
+    double arr[INPUT_SIZE] = {2,3,4};
+    input = Tensor_create(INPUT_SIZE, arr);
+
+    LayerPtr linear_layer;
+    linear_layer = Layer_create(INPUT_SIZE, LAYER_SIZE);
     
-    printf("BEFORE========================\n\n");
-    Value_printCompGraph(n->output);
+    Layer_print_output(linear_layer);
 
-    // backwardmaxxing
-    Neuron_backward(n);
+    // forwardmaxxing
+    Layer_forward(linear_layer, input);
 
-    printf("SETELAH BEFORE========================\n\n");
-    Value_printCompGraph(n->output);
+    Layer_print_output(linear_layer);
+
+    // // one neuron example ====================================================================================
+    // NeuronPtr n;
+    // n = Neuron_create(3);
+    // // Neuron_printWandB(n);
+    // double d[3] = {2, 0, 1};
+    // TensorPtr input = Tensor_create(3, d);
+    // Neuron_forward(n, input);
+    
+    // printf("BEFORE========================\n\n");
+    // Value_printCompGraph(n->output);
+
+    // // backwardmaxxing
+    // Neuron_backward(n);
+
+    // printf("SETELAH BEFORE========================\n\n");
+    // Value_printCompGraph(n->output);
 
     // // manual neural network example =========================================================================
     // ValuePtr x1, x2, w1, w2, b, x1w1, x2w2, x1w1x2w2, n, o;

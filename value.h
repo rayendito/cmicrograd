@@ -37,4 +37,6 @@ void Value_print(ValuePtr value);
 void Value_printCompGraph(ValuePtr value);
 void Value_printCompGraphHelper(ValuePtr value, int level);
 
+double gen_random();
+
 #endif

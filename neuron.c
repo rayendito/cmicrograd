@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <time.h>
+#include "value.h"
 #include "neuron.h"
 
 NeuronPtr Neuron_create(int size){
@@ -16,15 +17,15 @@ NeuronPtr Neuron_create(int size){
     return newNeuron;
 }
 
-int Neuron_forward(NeuronPtr neuron, ValuePtr values[], int input_size){
-    if(neuron->size != input_size){  // sanity check
+int Neuron_forward(NeuronPtr neuron, TensorPtr tensor){
+    if(neuron->size != tensor->size){  // sanity check
         return -1;
     }
 
-    neuron->linear_comb = Value_multiply(neuron->w[0], values[0]);
-    if(input_size > 1){
-        for (int i = 1; i < input_size; i++) {
-            neuron->linear_comb = Value_add(neuron->linear_comb, Value_multiply(neuron->w[i], values[i]));
+    neuron->linear_comb = Value_multiply(neuron->w[0], tensor->elements[0]);
+    if(tensor->size > 1){
+        for (int i = 1; i < tensor->size; i++) {
+            neuron->linear_comb = Value_add(neuron->linear_comb, Value_multiply(neuron->w[i], tensor->elements[i]));
         }
     }
     neuron->linear_comb = Value_add(neuron->linear_comb, neuron->b);
@@ -50,7 +51,3 @@ void Neuron_printWandB(NeuronPtr neuron){
     printf("Linear comb.: %.2f\n", neuron->linear_comb->data);
 }
 
-double gen_random(){
-    double div = RAND_MAX / 2;
-    return -1 + (rand() / div);
-}

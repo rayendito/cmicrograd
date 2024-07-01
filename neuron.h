@@ -1,5 +1,6 @@
 #include <stdio.h>
 #include "value.h"
+#include "tensor.h"
 
 #ifndef NEURON_H
 #define NEURON_H
@@ -17,7 +18,7 @@ typedef Neuron * NeuronPtr;
 
 NeuronPtr Neuron_create(int size);
 
-int Neuron_forward(NeuronPtr neuron, ValuePtr values[], int input_size);
+int Neuron_forward(NeuronPtr neuron, TensorPtr tensor);
 int Neuron_backward(NeuronPtr neuron);
 
 void Neuron_printWandB(NeuronPtr neuron);
