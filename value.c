@@ -44,15 +44,6 @@ ValuePtr Value_tanh(ValuePtr a){
     return Value_createFromOperator(regular_tanh(a->data), 't', a, NULL);
 }
 
-double Value_getData(ValuePtr value){
-    return value->data;
-}
-
-void Value_print(ValuePtr value){
-    printf("Data is %.2f\n", value->data);
-    printf("Grad is %.2f\n", value->grad);
-}
-
 void Value_backward(ValuePtr value){
     Value_backward_helper(NULL, value);
 }
@@ -96,3 +87,41 @@ double getSiblingData(ValuePtr parent, ValuePtr value){
 double regular_tanh(double x){
     return (exp(2*x) - 1)/(exp(2*x) + 1);
 }
+
+double Value_getData(ValuePtr value){
+    return value->data;
+}
+
+void Value_print(ValuePtr value){
+    printf("Data is %.2f\n", value->data);
+    printf("Grad is %.2f\n", value->grad);
+}
+
+void Value_printCompGraph(ValuePtr value){
+    Value_printCompGraphHelper(value, 0);
+}
+
+void Value_printCompGraphHelper(ValuePtr value, int space){
+    // Base case
+    if (value == NULL)
+        return;
+ 
+    // Increase distance between levels
+    space += TREE_PRINT_DISTANCE;
+ 
+    // Process right child first
+    Value_printCompGraphHelper(value->operand1, space);
+ 
+    // Print current node after space
+    // count
+    printf("\n");
+    for (int i = TREE_PRINT_DISTANCE; i < space; i++)
+        printf(" ");
+    printf("D:%.2f | G:%.2f | %c\n", value->data, value->grad, value->operator);
+ 
+    // Process left child
+    Value_printCompGraphHelper(value->operand2, space);
+}
+ 
+
+

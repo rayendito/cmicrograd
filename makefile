@@ -7,7 +7,7 @@ INCLUDES = -I.
 BINDIR = bin
 
 # Source files
-SOURCES = value.c main.c
+SOURCES = value.c neuron.c main.c
 
 # Object files
 OBJECTS = $(SOURCES:%.c=$(BINDIR)/%.o)

@@ -5,6 +5,7 @@
 #define VALUE_H
 
 #define NaN (-1.0 / 0.0)
+#define TREE_PRINT_DISTANCE 17
 
 typedef struct Value {
     double data;
@@ -24,14 +25,16 @@ ValuePtr Value_multiply(ValuePtr a, ValuePtr b);
 ValuePtr Value_power(ValuePtr a, ValuePtr b);
 ValuePtr Value_tanh(ValuePtr a);
 
-double Value_getData(ValuePtr value);
-
-void Value_print(ValuePtr value);
-
 void Value_backward(ValuePtr value);
 void Value_backward_helper(ValuePtr parent, ValuePtr value);
 
 double getSiblingData(ValuePtr parent, ValuePtr value);
 double regular_tanh(double x);
+
+double Value_getData(ValuePtr value);
+
+void Value_print(ValuePtr value);
+void Value_printCompGraph(ValuePtr value);
+void Value_printCompGraphHelper(ValuePtr value, int level);
 
 #endif
