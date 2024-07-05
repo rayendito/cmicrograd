@@ -4,6 +4,7 @@
 #include "value.h"
 #include "neuron.h"
 
+// set the weigts and biases randomly
 NeuronPtr Neuron_create(int size){
     srand(time(NULL));
     NeuronPtr newNeuron = malloc(sizeof(Neuron) + sizeof(ValuePtr[size]));

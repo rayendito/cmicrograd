@@ -7,7 +7,7 @@
 int main(){
     // layer example ====================================================================================
     const int INPUT_SIZE = 3;
-    const int LAYER_SIZE = 2;
+    const int LAYER_SIZE = 1;
     TensorPtr input;
     double arr[INPUT_SIZE] = {2,3,4};
     input = Tensor_create(INPUT_SIZE, arr);
@@ -15,12 +15,21 @@ int main(){
     LayerPtr linear_layer;
     linear_layer = Layer_create(INPUT_SIZE, LAYER_SIZE);
     
-    Layer_print_output(linear_layer);
+    
 
     // forwardmaxxing
     Layer_forward(linear_layer, input);
+    
+    // print the compute graph of one of the neurons
+    printf("BEFORE=========================\n");
+    Value_printCompGraph(linear_layer->neurons[0]->output);
 
-    Layer_print_output(linear_layer);
+    // backwardmaxxing
+    Layer_backward(linear_layer);
+
+    // print the compute graph of one of the neurons
+    printf("SETELAH BEFORE=========================\n");
+    Value_printCompGraph(linear_layer->neurons[0]->output);
 
     // // one neuron example ====================================================================================
     // NeuronPtr n;

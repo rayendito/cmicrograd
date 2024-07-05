@@ -10,6 +10,7 @@ LayerPtr Layer_create(int input_size, int size){
         newLayer->neurons[i] = Neuron_create(input_size);
     }
 
+    // to store outputs
     newLayer->output = Tensor_create_empty(size);
     for(int i = 0; i < size; i++){
         newLayer->output->elements[i] = newLayer->neurons[i]->output;
@@ -26,10 +27,12 @@ int Layer_forward(LayerPtr layer, TensorPtr tensor){
         return -1;
     }
 
+    // calculate output for every neuron against the tensor input
     for(int i = 0; i < layer->size; i++){
         Neuron_forward(layer->neurons[i], tensor);
     }
 
+    // updating the output pointers to point at Values of the neuron outputs
     for(int i = 0; i < layer->size; i++){
         layer->output->elements[i] = layer->neurons[i]->output;
     }
@@ -38,6 +41,10 @@ int Layer_forward(LayerPtr layer, TensorPtr tensor){
 }
 
 int Layer_backward(LayerPtr layer){
+    // thassit?
+    for(int i = 0; i < layer->size; i++){
+        Neuron_backward(layer->neurons[i]);
+    }
     return 0;
 }
 
