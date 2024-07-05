@@ -6,7 +6,7 @@
 
 // set the weigts and biases randomly
 NeuronPtr Neuron_create(int size){
-    srand(time(NULL));
+    // srand(time(NULL));
     NeuronPtr newNeuron = malloc(sizeof(Neuron) + sizeof(ValuePtr[size]));
     newNeuron->output = Value_create(0.0);
     newNeuron->linear_comb = Value_create(0.0);
@@ -47,8 +47,6 @@ void Neuron_printWandB(NeuronPtr neuron){
     }
     printf("\n");
     printf("Bias: %.2f\n", neuron->b->data);
-
-    printf("\n");
-    printf("Linear comb.: %.2f\n", neuron->linear_comb->data);
+    printf("Linear comb.: %.2f\n\n", neuron->linear_comb->data);
 }
 

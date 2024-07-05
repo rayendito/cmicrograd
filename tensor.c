@@ -45,3 +45,11 @@ void Tensor_print(TensorPtr tensor){
     }
     printf("]\n");
 }
+
+void Tensor_print_grad(TensorPtr tensor){
+    printf("[%.2f", tensor->elements[0]->grad);
+    for(int i = 1; i < tensor->size; i++){
+        printf(", %.2f", tensor->elements[i]->grad);
+    }
+    printf("]\n");
+}

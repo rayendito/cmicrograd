@@ -7,7 +7,7 @@ INCLUDES = -I.
 BINDIR = bin
 
 # Source files
-SOURCES = value.c tensor.c neuron.c layer.c main.c
+SOURCES = value.c tensor.c neuron.c layer.c mlp.c main.c
 
 # Object files
 OBJECTS = $(SOURCES:%.c=$(BINDIR)/%.o)

@@ -1,10 +1,15 @@
 #include <stdlib.h>
+#include <time.h>
 #include "layer.h"
 
 LayerPtr Layer_create(int input_size, int size){
+    srand(time(NULL));
     LayerPtr newLayer = (LayerPtr) malloc(sizeof(Layer) + sizeof(NeuronPtr[size]));
     newLayer->input_size = input_size;
     newLayer->size = size;
+
+    newLayer->prev = NULL;
+    newLayer->next = NULL;
 
     for (int i = 0; i < size; i++) {
         newLayer->neurons[i] = Neuron_create(input_size);
@@ -52,3 +57,12 @@ void Layer_print_output(LayerPtr layer){
     Tensor_print(layer->output);
 }
 
+void Layer_print_output_grad(LayerPtr layer){
+    Tensor_print_grad(layer->output);
+}
+
+void Layer_print_wandb(LayerPtr layer){
+    for(int i = 0; i < layer->size; i++){
+        Neuron_printWandB(layer->neurons[i]);
+    }
+}

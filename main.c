@@ -1,35 +1,69 @@
 #include <stdio.h>
+#include <stdlib.h>
+#include <time.h>
 #include "value.h"
 #include "tensor.h"
 #include "neuron.h"
 #include "layer.h"
+#include "mlp.h"
 
 int main(){
-    // layer example ====================================================================================
+    srand(time(NULL));
+
+    // MLP example ====================================================================================
     const int INPUT_SIZE = 3;
-    const int LAYER_SIZE = 1;
     TensorPtr input;
     double arr[INPUT_SIZE] = {2,3,4};
     input = Tensor_create(INPUT_SIZE, arr);
 
-    LayerPtr linear_layer;
-    linear_layer = Layer_create(INPUT_SIZE, LAYER_SIZE);
-    
-    
+    const int N_LAYER = 2;
+    LayerPtr layer_arr[N_LAYER] = {
+        Layer_create(3,4),
+        Layer_create(4,2),
+    };
+
+    MLPPTr nn = MLP_create(N_LAYER, layer_arr);
+
+    printf("BEFORE=========================\n");
+    MLP_printLayerOutputsForward(nn);
 
     // forwardmaxxing
-    Layer_forward(linear_layer, input);
-    
-    // print the compute graph of one of the neurons
-    printf("BEFORE=========================\n");
-    Value_printCompGraph(linear_layer->neurons[0]->output);
+    MLP_forward(nn, input);
 
     // backwardmaxxing
-    Layer_backward(linear_layer);
+    MLP_backward(nn);
 
-    // print the compute graph of one of the neurons
     printf("SETELAH BEFORE=========================\n");
-    Value_printCompGraph(linear_layer->neurons[0]->output);
+    MLP_printLayerOutputsForward(nn);
+    
+    printf("GRAD=========================\n");
+    MLP_print_grad(nn);
+
+    // // layer example ====================================================================================
+    // const int INPUT_SIZE = 3;
+    // const int LAYER_SIZE = 1;
+    // TensorPtr input;
+    // double arr[INPUT_SIZE] = {2,3,4};
+    // input = Tensor_create(INPUT_SIZE, arr);
+
+    // LayerPtr linear_layer;
+    // linear_layer = Layer_create(INPUT_SIZE, LAYER_SIZE);
+    
+    
+
+    // // forwardmaxxing
+    // Layer_forward(linear_layer, input);
+    
+    // // print the compute graph of one of the neurons
+    // printf("BEFORE=========================\n");
+    // Value_printCompGraph(linear_layer->neurons[0]->output);
+
+    // // backwardmaxxing
+    // Layer_backward(linear_layer);
+
+    // // print the compute graph of one of the neurons
+    // printf("SETELAH BEFORE=========================\n");
+    // Value_printCompGraph(linear_layer->neurons[0]->output);
 
     // // one neuron example ====================================================================================
     // NeuronPtr n;
