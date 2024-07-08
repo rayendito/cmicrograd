@@ -63,7 +63,7 @@ int MLP_backward(MLPPTr mlp){
 }
 
 // for testing if things work tbh wkwk i know maybe there are better ways than just printing lol
-void MLP_printLayerOutputsForward(MLPPTr mlp){
+void MLP_print_layer_outputs_forward(MLPPTr mlp){
     LayerPtr layr = mlp->first_layer;
     while(layr != NULL){
         Layer_print_output(layr);
@@ -71,7 +71,7 @@ void MLP_printLayerOutputsForward(MLPPTr mlp){
     }
 }
 
-void MLP_printLayerOutputsBackward(MLPPTr mlp){
+void MLP_print_layer_outputs_backward(MLPPTr mlp){
     LayerPtr layr = mlp->last_layer;
     while(layr != NULL){
         Layer_print_output(layr);

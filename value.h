@@ -28,14 +28,14 @@ ValuePtr Value_tanh(ValuePtr a);
 void Value_backward(ValuePtr value);
 void Value_backward_helper(ValuePtr parent, ValuePtr value);
 
-double getSiblingData(ValuePtr parent, ValuePtr value);
+double get_sibling_data(ValuePtr parent, ValuePtr value);
 double regular_tanh(double x);
 
 double Value_getData(ValuePtr value);
 
 void Value_print(ValuePtr value);
-void Value_printCompGraph(ValuePtr value);
-void Value_printCompGraphHelper(ValuePtr value, int level);
+void Value_print_comp_graph(ValuePtr value);
+void Value_print_comp_graph_helper(ValuePtr value, int level);
 
 double gen_random();
 

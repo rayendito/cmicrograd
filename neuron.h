@@ -21,7 +21,7 @@ NeuronPtr Neuron_create(int size);
 int Neuron_forward(NeuronPtr neuron, TensorPtr tensor);
 int Neuron_backward(NeuronPtr neuron);
 
-void Neuron_printWandB(NeuronPtr neuron);
+void Neuron_print_w_and_b(NeuronPtr neuron);
 double gen_random();
 
 #endif

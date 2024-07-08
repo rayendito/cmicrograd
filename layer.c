@@ -63,6 +63,6 @@ void Layer_print_output_grad(LayerPtr layer){
 
 void Layer_print_wandb(LayerPtr layer){
     for(int i = 0; i < layer->size; i++){
-        Neuron_printWandB(layer->neurons[i]);
+        Neuron_print_w_and_b(layer->neurons[i]);
     }
 }

@@ -65,7 +65,7 @@ void Value_backward_helper(ValuePtr parent, ValuePtr value){
                 value->grad += parent->grad;
                 break;
             case '*':
-                value->grad += parent->grad * getSiblingData(parent, value);
+                value->grad += parent->grad * get_sibling_data(parent, value);
                 break;
             default:
                 break;
@@ -75,7 +75,7 @@ void Value_backward_helper(ValuePtr parent, ValuePtr value){
     Value_backward_helper(value, value->operand2);
 }
 
-double getSiblingData(ValuePtr parent, ValuePtr value){
+double get_sibling_data(ValuePtr parent, ValuePtr value){
     if(parent->operator == '*'){ //can only be used by a Value whose parent is a multiply
         if(parent->operand1 == value){
             return parent->operand2->data;
@@ -98,11 +98,11 @@ void Value_print(ValuePtr value){
     printf("Grad is %.2f\n", value->grad);
 }
 
-void Value_printCompGraph(ValuePtr value){
-    Value_printCompGraphHelper(value, 0);
+void Value_print_comp_graph(ValuePtr value){
+    Value_print_comp_graph_helper(value, 0);
 }
 
-void Value_printCompGraphHelper(ValuePtr value, int space){
+void Value_print_comp_graph_helper(ValuePtr value, int space){
     // Base case
     if (value == NULL)
         return;
@@ -111,7 +111,7 @@ void Value_printCompGraphHelper(ValuePtr value, int space){
     space += TREE_PRINT_DISTANCE;
  
     // Process right child first
-    Value_printCompGraphHelper(value->operand1, space);
+    Value_print_comp_graph_helper(value->operand1, space);
  
     // Print current node after space
     // count
@@ -121,7 +121,7 @@ void Value_printCompGraphHelper(ValuePtr value, int space){
     printf("D:%.2f | G:%.2f | %c\n", value->data, value->grad, value->operator);
  
     // Process left child
-    Value_printCompGraphHelper(value->operand2, space);
+    Value_print_comp_graph_helper(value->operand2, space);
 }
  
 double gen_random(){

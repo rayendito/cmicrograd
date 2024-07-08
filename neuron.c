@@ -40,7 +40,7 @@ int Neuron_backward(NeuronPtr neuron){
     return 0;
 }
 
-void Neuron_printWandB(NeuronPtr neuron){
+void Neuron_print_w_and_b(NeuronPtr neuron){
     printf("Weights: ");
     for (int i = 0; i< neuron->size; i++) {
         printf(" %.2f,", neuron->w[i]->data);

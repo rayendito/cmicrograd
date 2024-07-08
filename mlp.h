@@ -19,8 +19,8 @@ int MLP_addLayer(MLPPTr mlp, LayerPtr layer);
 int MLP_forward(MLPPTr mlp, TensorPtr tensor);
 int MLP_backward(MLPPTr mlp);
 
-void MLP_printLayerOutputsForward(MLPPTr mlp);
-void MLP_printLayerOutputsBackward(MLPPTr mlp);
+void MLP_print_layer_outputs_forward(MLPPTr mlp);
+void MLP_print_layer_outputs_backward(MLPPTr mlp);
 void MLP_print_wandb(MLPPTr mlp);
 void MLP_print_grad(MLPPTr mlp);
 
